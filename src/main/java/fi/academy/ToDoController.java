@@ -21,7 +21,7 @@ public class ToDoController {
         this.dao=dao;
     }
 
-    @GetMapping("")
+    @GetMapping("/kaikki")
     public List<ToDo> listaaTehtavat(){
         List<ToDo> kaikki = dao.haeKaikki();
         System.out.printf(" (ToDoController:) Haetaan lista, jossa alkioita: %d kpl", kaikki.size());

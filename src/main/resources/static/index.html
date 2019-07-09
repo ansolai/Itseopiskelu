@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="ToDoAction.js"></script>
+    <link rel ="stylesheet" href="ToDoLook.css">
+    <title>BASE</title>
+
+</head>
+<body>
+<!--Alkuperäinen muotoilu-->
+<!--<div id="myDIV" class="header">-->
+<!--    <h2>My To Do List</h2>-->
+<!--    <input type="text" id="myInput" placeholder="Title...">-->
+<!--    <span onclick="newElement()" class="addBtn">Add</span>-->
+<!--</div>-->
+
+
+<!--kuvaus ja Jumbotroni-->
+<div class="jumbotron">
+    <h1>This is the ToDo</h1>
+    <h3>Here you can manage your tasks by adding and deleting them </h3>
+</div>
+
+<!--Get Request, napit 'Get Todos' 'Clear' /komennot tiedon hakemiselle-->
+<div class="panel panel-primary">
+    <div class="panel-heading">GET Request</div>
+    <div class="panel-body">
+        <button class="btn btn-primary" onclick="performGetRequest1()">Get Todos</button>
+        <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
+        <div class="panel-body" id="getResult1"></div>
+    </div>
+</div>
+
+<!--tekstinsyöttö tietyn Id:n hakua varten ja 'Get ToDos' nappi-->
+<div class="panel panel-primary">
+    <div class="panel-heading">GET Request with Paramaters</div>
+    <div class="panel-body">
+        <input type="text" class="form-control" id="todoId" placeholder="Todo ID ..."/><br/>
+        <button class="btn btn-primary" onclick="performGetRequest2()">Get Todos</button>
+        <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
+        <div class="panel-body" id="getResult2"></div>
+    </div>
+</div>
+
+<!--POST käsky lisäämistä varten, etkstikenttä johon syöttää, Send ja Clear napit-->
+<div class="panel panel-primary">
+    <div class="panel-heading">POST Request</div>
+    <div class="panel-body">
+        <form class="form-inline" id="todoInputForm">
+            <div class="form-group">
+                <input type="text" class="form-control" id="todoTitle" placeholder="Todo Title ...">
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form><br/>
+        <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
+        <div class="panel-body" id="postResult"></div>
+    </div>
+</div>
+
+<br>
+<p> -----------------Alla alkuperäinen html muotoilu------------------</p>
+<br>
+
+<!--<ul id="myUL">-->
+<!--    <li>Hit the gym</li>-->
+<!--    <li class="checked">Pay bills</li>-->
+<!--    <li>Meet George</li>-->
+<!--    <li>Buy eggs</li>-->
+<!--    <li>Read a book</li>-->
+<!--    <li>Organize office</li>-->
+<!--</ul>-->
+
+<footer>
+
+</footer>
+</body>
+</html>
+
+<!--https://www.w3schools.com/howto/howto_js_todolist.asp-->
+
+<!--https://medium.com/codingthesmartway-com-blog/getting-started-with-axios-166cb0035237-->
