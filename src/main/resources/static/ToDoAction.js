@@ -1,29 +1,29 @@
 var task = [];
-document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("DOMContentLoaded", performGetRequest1);
 
-function init(){
-    performGetRequest1();
-}
+// function init(){
+//     performGetRequest1();
+// }
 
 function suorita(task){
     var todolista = document.getElementById("tehtavatTaulukkoon");
-    todolista.innerHTML = "<tr>" + "<th>" + "ID" + "<th>" + "TASK" + "</tr>";
+    // todolista.innerHTML = "<tr>" + "<th>" + "ID" + "<th>" + "TASK" + "</tr>";
     for ( var i = 0; i< task.length; i++){
         var yksiTehtava = task[i];
         console.dir(yksiTehtava);
-        todolista.innerHTML += "<tr>" + "<td>" + yksiTehtava.id + "<td>" + yksiTehtava.task + "</tr>";
+        todolista.innerHTML += "<tr>" + "<td>" + yksiTehtava.id  + "<td>"+  yksiTehtava.task + "<td>"+ "</tr>";
     }
     console.log("JSON listan läpikäynti")
 }
 
-//hae kaikki tehtävät, toistaiseksi muotoilua ei ole, tulostaa jsonia
+//hae kaikki tehtävät
 function performGetRequest1() {
      var kaikkiTehtavat = document.getElementById('tehtavatTaulukkoon');
-    kaikkiTehtavat.innerHTML = '';
+    // kaikkiTehtavat.innerHTML = '';
 
     axios.get('/api/tehtavat/kaikki')
         .then(function (response) {
-            kaikkiTehtavat.innerHTML = generateSuccessHTMLOutput(response);
+//            kaikkiTehtavat.innerHTML = generateSuccessHTMLOutput(response);
             task = response.data;
              suorita(task);
         })
@@ -44,6 +44,7 @@ function performDeleteRequest2() {
         .then(function (response) {
             console.log("tehtava postettu: " + response);
             todoId.innerHTML = generateSuccessHTMLOutput(response);
+            performGetRequest1();
         })
         .catch(function (error) {
             var poistettu = document.getElementById('virheilmoitukset');
@@ -53,10 +54,7 @@ function performDeleteRequest2() {
 }
 
 function performPostRequest(e) {
-    // var lahtevaTehtava = document.getElementById('postResult');
     var todoTitle = document.getElementById('todoTitle').value;
-    // lahtevaTehtava.innerHTML = '';
-
     axios.post('/api/tehtavat', {
         task: todoTitle
     })
@@ -71,7 +69,7 @@ function performPostRequest(e) {
 }
 
 function generateSuccessHTMLOutput(response) {
-    console.log("testi SuccessHTMLOutput: " + JSON.stringify(response.data, null, '\t'));
+    console.log("testi generateSuccessHTMLOutput: " + JSON.stringify(response.data, null, '\t'));
 }
 
 function generateErrorHTMLOutput(error) {
