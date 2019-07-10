@@ -1,64 +1,85 @@
+var task = [];
+document.addEventListener("DOMContentLoaded", init);
+
+function init(){
+    performGetRequest1();
+}
+
+function suorita(task){
+    var todolista = document.getElementById("tehtavatTaulukkoon");
+    todolista.innerHTML = "<tr>" + "<th>" + "ID" + "<th>" + "TASK" + "</tr>";
+    for ( var i = 0; i< task.length; i++){
+        var yksiTehtava = task[i];
+        console.dir(yksiTehtava);
+        todolista.innerHTML += "<tr>" + "<td>" + yksiTehtava.id + "<td>" + yksiTehtava.task + "</tr>";
+    }
+    console.log("JSON listan läpikäynti")
+}
 
 //hae kaikki tehtävät, toistaiseksi muotoilua ei ole, tulostaa jsonia
 function performGetRequest1() {
-    var resultElement = document.getElementById('getResult1');
-    resultElement.innerHTML = '';
+     var kaikkiTehtavat = document.getElementById('tehtavatTaulukkoon');
+    kaikkiTehtavat.innerHTML = '';
 
     axios.get('/api/tehtavat/kaikki')
         .then(function (response) {
-        console.log(response);
-            resultElement.innerHTML = generateSuccessHTMLOutput(response);
+            kaikkiTehtavat.innerHTML = generateSuccessHTMLOutput(response);
+            task = response.data;
+             suorita(task);
         })
         .catch(function (error) {
             console.log(error);
-            resultElement.innerHTML = generateErrorHTMLOutput(error);
+            kaikkiTehtavat.innerHTML += "<tr>" +  "<td>" +error.message + "<td>" + error.response.status + ' ' + error.response.statusText + "<td>" + + "<td>" + "<td>" + "</tr>";
+            kaikkiTehtavat.innerHTML = generateErrorHTMLOutput(error);
         });
 }
 
 //poista tietyn Id:n perusteella
-function performGetRequest2() {
-    var resultElement = document.getElementById('getResult2');
-    var todoId = document.getElementById(('todoId').value);
-    resultElement.innerHTML= '';
+function performDeleteRequest2() {
+    var todoId = document.getElementById('todoId').value;
 
-axios.get('/api/tehtavat/id', {
-    params: {
+    axios.delete('/api/tehtavat/'+ todoId,  {
         id: todoId
-    }
-})
-    .then(function (response) {
-        console.log(response);
-        resultElement.innerHTML = generatedSuccessHTMLOutput(reponse);
     })
-    .catch(function (error) {
-        console.log(error);
-        resultElement.innerHTML = generateErrorHTMLOutput(error);
-    })
-    .then(function () {
-        // always executed
-    });
+        .then(function (response) {
+            console.log("tehtava postettu: " + response);
+            todoId.innerHTML = generateSuccessHTMLOutput(response);
+        })
+        .catch(function (error) {
+            var poistettu = document.getElementById('virheilmoitukset');
+            console.log("virhe poiston yhteydessä " + error);
+            poistettu.innerHTML = generateErrorHTMLOutput(error);
+        });
 }
 
+function performPostRequest(e) {
+    // var lahtevaTehtava = document.getElementById('postResult');
+    var todoTitle = document.getElementById('todoTitle').value;
+    // lahtevaTehtava.innerHTML = '';
+
+    axios.post('/api/tehtavat', {
+        task: todoTitle
+    })
+        .then(function (response) {
+            todoTitle.innerHTML = generateSuccessHTMLOutput(response);
+            console.log("tehtävä luotu: " +todoTitle);
+        })
+        .catch(function (error) {
+            todoTitle.innerHTML = generateErrorHTMLOutput(error);
+        });
+    e.preventDefault();
+}
 
 function generateSuccessHTMLOutput(response) {
-    return  '<h4>Result</h4>' +
-        '<h5>Status:</h5> ' +
-        '<pre>' + response.status + ' ' + response.statusText + '</pre>' +
-        '<h5>Headers:</h5>' +
-        '<pre>' + JSON.stringify(response.headers, null, '\t') + '</pre>' +
-        '<h5>Data:</h5>' +
-        '<pre>' + JSON.stringify(response.data, null, '\t') + '</pre>';
+    console.log("testi SuccessHTMLOutput: " + JSON.stringify(response.data, null, '\t'));
 }
+
 function generateErrorHTMLOutput(error) {
-    return  '<h4>Result</h4>' +
-        '<h5>Message:</h5> ' +
-        '<pre>' + error.message + '</pre>' +
-        '<h5>Status:</h5> ' +
-        '<pre>' + error.response.status + ' ' + error.response.statusText + '</pre>' +
-        '<h5>Headers:</h5>' +
-        '<pre>' + JSON.stringify(error.response.headers, null, '\t') + '</pre>' +
-        '<h5>Data:</h5>' +
-        '<pre>' + JSON.stringify(error.response.data, null, '\t') + '</pre>';
+    var virheviesti = document.getElementById('virheilmoitukset');
+    // virheviesti.innerHTML = "<tr>" + "<th>" +"Message"+  "<th>" +"Status"+ "<th>" +"Headers"+ "<th>" +"Data"+ "</th>";
+    virheviesti.innerHTML += "<tr>" +  "<td>" +error.message + "<td>" + error.response.status + ' ' +
+        error.response.statusText + "<td>" + JSON.stringify(error.response.headers, null, '\t') +
+        "<td>" +JSON.stringify(error.response.data, null, '\t') + "<td>" + "</tr>";
 }
 
 

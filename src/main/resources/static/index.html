@@ -25,39 +25,48 @@
 
 <!--Get Request, napit 'Get Todos' 'Clear' /komennot tiedon hakemiselle-->
 <div class="panel panel-primary">
-    <div class="panel-heading">GET Request</div>
+    <div class="panel-heading">Refresh tasks (GET)</div>
     <div class="panel-body">
-        <button class="btn btn-primary" onclick="performGetRequest1()">Get Todos</button>
-        <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
+        <button class="btn btn-primary" onclick="performGetRequest1()">Update Todos</button>
+        <!--        <button class="btn btn-warning" onclick="clearOutput()">Clear</button>-->
         <div class="panel-body" id="getResult1"></div>
     </div>
 </div>
 
 <!--tekstinsyöttö tietyn Id:n hakua varten ja 'Get ToDos' nappi-->
 <div class="panel panel-primary">
-    <div class="panel-heading">GET Request with Paramaters</div>
+    <div class="panel-heading">Delete by Id</div>
     <div class="panel-body">
-        <input type="text" class="form-control" id="todoId" placeholder="Todo ID ..."/><br/>
-        <button class="btn btn-primary" onclick="performGetRequest2()">Get Todos</button>
-        <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
+        <input type="text" class="form-control" id="todoId" placeholder="Delete task by id ..."/><br/>
+        <button class="btn btn-primary" onclick="performDeleteRequest2()">Delete Id</button>
+        <!--        <button class="btn btn-warning" onclick="clearOutput()">Clear</button>-->
         <div class="panel-body" id="getResult2"></div>
     </div>
 </div>
 
-<!--POST käsky lisäämistä varten, etkstikenttä johon syöttää, Send ja Clear napit-->
+<!--POST käsky lisäämistä varten, tekstikenttä johon syöttää, Send ja Clear napit-->
 <div class="panel panel-primary">
-    <div class="panel-heading">POST Request</div>
+    <div class="panel-heading">Add a new task (POST)</div>
     <div class="panel-body">
         <form class="form-inline" id="todoInputForm">
             <div class="form-group">
                 <input type="text" class="form-control" id="todoTitle" placeholder="Todo Title ...">
             </div>
-            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="submit" class="btn btn-primary" onclick="performPostRequest()">Send</button>
         </form><br/>
-        <button class="btn btn-warning" onclick="clearOutput()">Clear</button>
+        <!--        <button class="btn btn-warning" onclick="clearOutput()">Clear</button>-->
         <div class="panel-body" id="postResult"></div>
     </div>
 </div>
+
+<table class="table table-striped">
+    <tbody id="tehtavatTaulukkoon"></tbody>
+</table>
+
+<table class ="table table-striped">
+    <tbody id="virheilmoitukset"></tbody>
+</table>
+
 
 <br>
 <p> -----------------Alla alkuperäinen html muotoilu------------------</p>
