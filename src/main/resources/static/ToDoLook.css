@@ -6,17 +6,13 @@
 /*    max-width: 200px;*/
 /*}*/
 
-/* Remove margins and padding from the table */
-/*.taulukko {*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*}*/
-
 /* muotoile taulukot*/
 .taulukko{
     /*cursor: pointer; tämä muuntaa kursorin ulkonäköä*/
     position: relative;
-    padding: 12px 8px 12px 40px;
+    padding: 12px 12px 12px 40px;
+    margin-top: 30px;
+    margin-bottom: 20px;
     background: #eee;
     font-size: 18px;
     transition: 0.2s;
@@ -47,13 +43,23 @@
 #otsikkoId{
     min-width:45px;
     max-width:55px;
+    padding-left: 10px;
+}
 
+#tehtavatTaulukkoon{
+    margin: 10px;
+    padding-left: 10px;
 }
 
 /*joka toinen taulukon riveistä on erivärinen*/
 #tehtavatTaulukkoon tr:nth-child(odd){
     background: #f9f9f9;
-    class:"table table-striped";
+    /*class:"table table-striped";*/
+}
+
+#id{
+    margin-left: 10px;
+    padding-left: 10px;
 }
 
 /*Tämä muuntaa taulukon jokatoisen rivin tummemmaksi kursorin ollessa kohdalla*/
@@ -76,6 +82,18 @@
     clear: both;
 }
 
+.hakuboxi {
+    background-color: #d9e9e1;
+    color: black;
+    text-align: center;
+    align-content: center;
+}
+
+.panel-heading{
+    font-size: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial,sans-serif;
+}
+
 /*tekstisyöttöboxien muotoilu*/
 #todoTitle, #todoId{
     margin: 0;
@@ -88,30 +106,6 @@
     max-width:700px;
     min-width:100px;
 }
-
-.hakuboxi {
-    background-color: #d9e9e1;
-    /*padding: 30px 40px;*/
-    color: black;
-    text-align: center;
-    align-content: center;
-}
-
-/*.form-group {*/
-/*    height: 200px;*/
-/*    position: relative;*/
-/*}*/
-/*!* Style the input *!*/
-/*panel-body {*/
-/*    !*margin: 0;*!*/
-/*    !*border: none;*!*/
-/*    !*border-radius: 0;*!*/
-/*    !*width: 75%;*!*/
-/*    !*padding: 10px;*!*/
-/*    !*float: left;*!*/
-/*    !*font-size: 16px;*!*/
-/*}*/
-
 
 /* buttonien muotoilu */
 .button {
@@ -133,5 +127,7 @@
 /*}*/
 
 #alakommentti{
+    font-size: 30px;
     text-align: center;
+    color: #88aaaa;
 }

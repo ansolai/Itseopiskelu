@@ -17,23 +17,23 @@ public class ToDoController {
     private ToDoDao dao;
 
     @Autowired
-    public ToDoController(ToDoDao dao){
-        this.dao=dao;
+    public ToDoController(ToDoDao dao) {
+        this.dao = dao;
     }
 
     @GetMapping("/kaikki")
-    public List<ToDo> listaaTehtavat(){
+    public List<ToDo> listaaTehtavat() {
         List<ToDo> kaikki = dao.haeKaikki();
         System.out.printf(" (ToDoController:) Haetaan lista, jossa alkioita: %d kpl", kaikki.size());
         return kaikki;
     }
 
     @PostMapping("")
-    public ResponseEntity<?>luoUusi(@RequestBody ToDo uusi) {
+    public ResponseEntity<?> luoUusi(@RequestBody ToDo uusi) {
         int id = 0;
         try {
             id = dao.lisaa(uusi);
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         URI location = ServletUriComponentsBuilder
@@ -50,6 +50,8 @@ public class ToDoController {
         dao.poista(id);
         return id;
     }
+}
+//alla koodia olemassa olevan tiedon muokkaamista varten, ei käytössä MVP versiossa
 
 //    @PutMapping("/{id}")
 //    public ResponseEntity<?>muokkaa(@RequestBody ToDo tiedot,
@@ -64,6 +66,8 @@ public class ToDoController {
 //                .status(HttpStatus.NOT_FOUND)
 //                .body(new Virheviesti(String.format("Ei voida muokata, sillä Id:tä %d ei ole olemassa", id)));
 //    }
+
+//tietojen hakeminen esim.id:n perusteella, ei mukana MVP versiossa
     //    @GetMapping("/{id}")
 //    public ResponseEntity<?> etsiTietty(@PathVariable(name = "id", required = true), int id){
 //        var haettu = dao.haeIdlla(id);
@@ -74,4 +78,3 @@ public class ToDoController {
 //        }
 //        return ResponseEntity.ok(haettu.get());
 //    }
-}
